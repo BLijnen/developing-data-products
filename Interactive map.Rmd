@@ -1,0 +1,26 @@
+---
+title: "Leaflet"
+author: "Bert Lijnen"
+date: "17 September 2017"
+output: html_document
+---
+
+# Developing Data Products: R Markdown and Leaflet
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The following interactive map has been developed in leaflet. The marker shows where my office is situated and the circle indicates the region I live in. 
+
+```{r}
+library(leaflet)
+my_map<-leaflet()
+my_map<-my_map%>%addMarkers(my_map, 
+                     lng=4.714001574265836, lat=50.87779769012357,
+                     popup="My Office")
+my_map<-my_map%>%addCircles(my_map,
+                lng=4.423233, lat=50.8333451, weight=3, 
+                radius=800, popup="The region I live in")
+my_map
+```
