@@ -1,0 +1,61 @@
+---
+title: "Pitch presentation"
+author: "Bert Lijnen"
+date: "23 September 2017"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+# Assignment and data
+
+The assignment for the data science cours **Developing Data Products** consists of two parts:
+
+- Making and publishing a shiny application  
+
+- Making a reproducible pitch presentation explaining how the shiny app has been made and allowing readers to reproduce it.
+
+
+
+The data we have used to make a shiny app is **customer satisfaction data** which comprises:  
+
+- The overall satisfaction score for an amusement park   
+
+- Scores on 4 different satisfaction drivers (satisfaction with the rides, games, waiting times and cleanliness of the park). 
+
+- Objective measures for each respondent: whether the respondent visisted the park on a weekend, the number of children they brought and the distance they have traveled to the park.
+
+The next slide shows a snapshot of the dataset as well as a table summarizing the variables. The data comes from Chapman, C. and McDonnell Feit who use it in their book *R for Marketing Research and Analytics*. 
+
+In our shiny app we have used this dataset to build an interactive table and as well as a multiple regression model to predict the overall satisfaction score.
+
+
+# Data snapshot and summary
+
+```{r}
+# Download the data
+sat.df<-read.csv("http://goo.gl/HKnl74")
+library(kableExtra)
+# show a snapshot
+pander::pander(head(sat.df),  split.table=Inf, caption="", missing="") 
+# Make a summary table
+pander::pander(summary(sat.df), split.table=Inf, caption="", missing="")
+```
+
+# Building a shiny app: interactive dataset and predicting overal satisfaction
+
+To develop a multiple regression model for predicting overall satisfaction we have used the 4 satisfaction drivers as predictors. The model is: 
+
+```{r}
+model1<-lm(overall~rides+games+wait+clean, data=sat.df)
+pander::pander(summary(model1), split.table=Inf, caption="", add.significance.stars=TRUE)
+```
+
+# Links to code and output
+
+- Shyny app:  https://bertlijnen.shinyapps.io/customersatisfaction/
+
+- Server code: https://github.com/BLijnen/developing-data-products/blob/master/Server_code.Rmd 
+
+- ui code: https://github.com/BLijnen/developing-data-products/blob/master/ui_code.Rmd 
+
